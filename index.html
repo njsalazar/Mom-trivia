@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Famous Moms Trivia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <!-- Welcome screen -->
+      <section id="welcome" class="screen active">
+        <div class="welcome-card">
+          <p class="overline">A party game for the chardonnay-and-Stanley-cup crowd</p>
+          <h1>
+            <span class="script">Famous</span>
+            <span class="big">Moms</span>
+            <span class="serif">Trivia</span>
+          </h1>
+          <p class="tagline">
+            From Carol Brady to Beth Dutton, Lorelai Gilmore to Joanna Gaines &mdash;
+            how well do you know the moms of our lives?
+          </p>
+
+          <div class="setup">
+            <h2>Set up your teams</h2>
+            <p class="hint">Add 2&ndash;6 teams. Skip this if you want to play casually.</p>
+            <div id="teams-list" class="teams-list"></div>
+            <button type="button" id="add-team" class="btn-ghost">+ Add a team</button>
+          </div>
+
+          <div class="categories">
+            <h2>Categories tonight</h2>
+            <ul id="category-preview" class="category-preview"></ul>
+          </div>
+
+          <button type="button" id="start-game" class="btn-primary big-btn">
+            Pour the rosé &mdash; let&rsquo;s play
+          </button>
+        </div>
+      </section>
+
+      <!-- Game screen -->
+      <section id="game" class="screen">
+        <header class="game-header">
+          <div class="progress">
+            <span id="q-number">1</span>
+            <span class="of">/</span>
+            <span id="q-total">50</span>
+          </div>
+          <div id="category-badge" class="category-badge">TV Moms</div>
+          <button type="button" id="quit" class="btn-link">End game</button>
+        </header>
+
+        <div class="question-card">
+          <p id="question-text" class="question-text"></p>
+          <ol id="options" class="options"></ol>
+
+          <div class="game-actions">
+            <button type="button" id="reveal" class="btn-primary">Reveal answer</button>
+            <button type="button" id="next" class="btn-primary hidden">Next question &rarr;</button>
+          </div>
+
+          <div id="trivia-note" class="trivia-note hidden"></div>
+        </div>
+
+        <aside id="scoreboard" class="scoreboard">
+          <h3>Score the round</h3>
+          <p class="hint">Tap a team to add a point for this question.</p>
+          <div id="team-buttons" class="team-buttons"></div>
+        </aside>
+      </section>
+
+      <!-- End screen -->
+      <section id="end" class="screen">
+        <div class="welcome-card">
+          <p class="overline">Cue the credits</p>
+          <h1>
+            <span class="script">That&rsquo;s a</span>
+            <span class="big">Wrap</span>
+          </h1>
+          <div id="winner" class="winner"></div>
+          <ol id="final-scores" class="final-scores"></ol>
+          <button type="button" id="play-again" class="btn-primary big-btn">Play again</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
