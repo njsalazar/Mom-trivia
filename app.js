@@ -6,7 +6,8 @@
     currentIndex: 0,
     revealed: false,
     awardedThisQuestion: new Set(),
-    questions: []
+    questions: [],
+    mode: "multiple-choice" // "multiple-choice" | "open"
   };
 
   // ---------- Welcome screen setup ----------
@@ -98,6 +99,8 @@
     state.teams.forEach(function (t) {
       t.score = 0;
     });
+    const modeInput = document.querySelector('input[name="game-mode"]:checked');
+    state.mode = modeInput ? modeInput.value : "multiple-choice";
     state.questions = buildOrderedQuestions();
     state.currentIndex = 0;
     showScreen("game");
@@ -115,19 +118,27 @@
     document.getElementById("question-text").textContent = q.question;
 
     const ol = document.getElementById("options");
+    const openReveal = document.getElementById("open-reveal");
     ol.innerHTML = "";
-    const letters = ["A", "B", "C", "D"];
-    q.options.forEach(function (opt, i) {
-      const li = document.createElement("li");
-      li.dataset.index = String(i);
-      li.innerHTML =
-        '<span class="letter">' +
-        letters[i] +
-        "</span><span>" +
-        escapeHtml(opt) +
-        "</span>";
-      ol.appendChild(li);
-    });
+    openReveal.classList.add("hidden");
+
+    if (state.mode === "multiple-choice") {
+      ol.classList.remove("hidden");
+      const letters = ["A", "B", "C", "D"];
+      q.options.forEach(function (opt, i) {
+        const li = document.createElement("li");
+        li.dataset.index = String(i);
+        li.innerHTML =
+          '<span class="letter">' +
+          letters[i] +
+          "</span><span>" +
+          escapeHtml(opt) +
+          "</span>";
+        ol.appendChild(li);
+      });
+    } else {
+      ol.classList.add("hidden");
+    }
 
     document.getElementById("reveal").classList.remove("hidden");
     document.getElementById("next").classList.add("hidden");
@@ -142,15 +153,22 @@
     if (state.revealed) return;
     state.revealed = true;
     const q = state.questions[state.currentIndex];
-    const items = document.querySelectorAll("#options li");
-    items.forEach(function (li) {
-      const idx = Number(li.dataset.index);
-      if (idx === q.answer) {
-        li.classList.add("correct");
-      } else {
-        li.classList.add("dim");
-      }
-    });
+
+    if (state.mode === "multiple-choice") {
+      const items = document.querySelectorAll("#options li");
+      items.forEach(function (li) {
+        const idx = Number(li.dataset.index);
+        if (idx === q.answer) {
+          li.classList.add("correct");
+        } else {
+          li.classList.add("dim");
+        }
+      });
+    } else {
+      const openReveal = document.getElementById("open-reveal");
+      document.getElementById("open-reveal-text").textContent = q.options[q.answer];
+      openReveal.classList.remove("hidden");
+    }
 
     if (q.note) {
       const note = document.getElementById("trivia-note");

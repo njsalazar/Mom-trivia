@@ -40,6 +40,27 @@
             <ul id="category-preview" class="category-preview"></ul>
           </div>
 
+          <div class="mode-picker">
+            <h2>How are we playing?</h2>
+            <p class="hint">Pick a vibe. You can change your mind by starting over.</p>
+            <div class="mode-options">
+              <label class="mode-option">
+                <input type="radio" name="game-mode" value="multiple-choice" checked />
+                <div class="mode-card">
+                  <strong>Multiple choice</strong>
+                  <span>Four options on screen. Guests pick A, B, C, or D.</span>
+                </div>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="game-mode" value="open" />
+                <div class="mode-card">
+                  <strong>Read &amp; shout</strong>
+                  <span>No options on screen &mdash; just the question. Guests blurt out their answer.</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
           <button type="button" id="start-game" class="btn-primary big-btn">
             Pour the rosé &mdash; let&rsquo;s play
           </button>
@@ -61,6 +82,10 @@
         <div class="question-card">
           <p id="question-text" class="question-text"></p>
           <ol id="options" class="options"></ol>
+          <div id="open-reveal" class="open-reveal hidden">
+            <span class="open-reveal-label">Answer</span>
+            <p id="open-reveal-text" class="open-reveal-text"></p>
+          </div>
 
           <div class="game-actions">
             <button type="button" id="reveal" class="btn-primary">Reveal answer</button>
